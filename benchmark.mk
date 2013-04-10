@@ -1,4 +1,4 @@
-all :: benchmark/test1.res benchmark/test2.res benchmark/test3_ce6.pdf benchmark/test3_dm3.pdf benchmark/test3_hg19.pdf
+all :: benchmark/test3_ce6.pdf benchmark/test3_dm3.pdf benchmark/test3_hg19.pdf
 
 benchmark/test1.res : benchmark/test1.pl
 	perl benchmark/test1.pl > benchmark/test1.res

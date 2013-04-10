@@ -13,15 +13,15 @@ read_configuration($config);
 $dir  = "benchmark/files/";
 $file = "test3_$db"; 
 
-system("perl Perl/all2all.pl -in $metadata/$db.cps -out $dir$db.a2a");
-system("Progs/irbis -l $output/ncpcg.met -r $output/ncpcg.met -o $dir$file.tab $params -b $dir$db.a2a ") unless(-e "$dir$file.tab");
+`perl Perl/all2all.pl -in $metadata/$db.cps -out $dir$db.a2a`;
+`Progs/irbis -l $output/ncpcg.met -r $output/ncpcg.met -o $dir$file.tab $params -b $dir$db.a2a` unless(-e "$dir$file.tab");
 
 test();
 
 for($n=0; $n<=9; $n++) {
     unless(-e "$dir$file.tab$n") {
     	$line = `perl benchmark/shuffle.pl $dir$db.a2a $output/ncpcg.met.cns $metadata/ncpcg.cps 50 | sort -k1,1n -k2,2n > $dir$db.shuffled.srt`;
-	$line = `Progs/irbis -l $output/ncpcg.met -r $output/ncpcg.met -o $dir$file.tab$n $params -b $dir$db.shuffled.srt `;
+	$line = `Progs/irbis -l $output/ncpcg.met -r $output/ncpcg.met -o $dir$file.tab$n $params -b $dir$db.shuffled.srt`;
     }
     print STDERR "[$n]";
     test($n);
