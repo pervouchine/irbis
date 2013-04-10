@@ -1,0 +1,49 @@
+#name     abbr   ucsc     filetype     refdb  clade       nickname       fullname
+homSap19  H.Sap  hg19     chrom        hg19   vertebrate  Human          Homo sapiens
+panTro3   P.Tro  panTro3  fa           hg19   vertebrate  Chimpanse      Pan trogloditis
+rheMac2   R.Mac  rheMac2  chrom-soft   hg19   vertebrate  Rhesus_macaca  Macaca mulatta
+#otoGar1   O.Gar  otoGar1  fa           hg19   vertebrate  Bushbaby       Bushbaby
+papHam1   P.Ham  papHam1  fa           hg19   vertebrate  Baboon         Baboon
+gorGor3   G.Gor  gorGor3  fa           hg19   vertebrate  Gorilla        Gorilla gorilla
+ponAbe2   P.Abe  ponAbe2  chrom        hg19   vertebrate  Orangutan      Pongo pugmeus abelii
+calJac3   C.Jac  calJac3  fa           hg19   vertebrate  Marmoset       Callithrix jacchus
+musMus9   M.Mus  mm9      chrom        hg19   vertebrate  Mouse          Mus musculus
+bosTau4   B.Tau  bosTau4  fa           hg19   vertebrate  Cow            Bos taurus
+equCab2   E.Cab  equCab2  chrom        hg19   vertebrate  Horse          Equus caballus
+canFam2   C.Fam  canFam2  chrom-sub    hg19   vertebrate  Dog            Canis familiaris
+ratNor4   R.Nor  rn4      chrom-sub    hg19   vertebrate  Rat            Rattus norvegicus
+monDom5   M.Dom  monDom5  chrom-sub    hg19   vertebrate  Opossum        Monodelphis domestica
+felCat4   F.Cat  felCat4  fa           hg19   vertebrate  Cat            Felis catus
+cavPor3   C.Por  cavPor3  fa           hg19   vertebrate  Guinea_pig     Cavia porcellus
+susScr2   S.Sus  susScr2  chrom        hg19   vertebrate  Pig            Sus scrofa
+oviAri1   O.Avi  oviAri1  fa           hg19   vertebrate  Sheep          Ovis aries
+ornAna1   O.Ana  ornAna1  fa           hg19   vertebrate  Platyus        Ornithorhynchus anatinus
+loxAfr3   L.Afr  loxAfr3  fa           hg19   vertebrate  Elephant       Loxodonta africana
+oryCun2   O.Cun  oryCun2  fa           hg19   vertebrate  Rabbit         Oryctolagus cuniculus
+galGal3   G.Gal  galGal3  chrom        hg19   vertebrate  Chicken        Gallus gallus
+danRer7   D.Rer  danRer7  fa           hg19   vertebrate  Danio          Danio rerio
+tetNig2   T.Nig  tetNig2  chrom        hg19   vertebrate  Tetraodon      Tetraodon nigroviridis
+fugRub2   F.Rub  fr2      chrom        hg19   vertebrate  Fugu           Fugu rubripes
+gasAcu1   G.Acu  gasAcu1  chrom        hg19   vertebrate  Stickleback    Gasterosteus aculeatus
+oryLat2   O.Lat  oryLat2  fa           hg19   vertebrate  Medaka         Oryzias latipes
+droMel3   D.Mel  dm3      chrom        dm3    insect      D.Mel          Drosophila melanogaster
+droSim1   D.Sim  droSim1  chrom        dm3    insect      D.Sim          Drosophila simulans
+droSec1   D.Sec  droSec1  scaffold     dm3    insect      D.Sec          Drosophila sechellia
+droEre2   D.Ere  droEre2  fa           dm3    insect      D.Ere          Drosophila erecta
+droAna3   D.Ana  droAna3  fa           dm3    insect      D.Ana          Drosophila ananassae
+droGri2   D.Gri  droGri2  fa           dm3    insect      D.Gri          Drosophila grimshawi
+droMoj3   D.Moj  droMoj3  fa           dm3    insect      D.Moj          Drosophila mojavensis
+droPer1   D.Per  droPer1  scaffold     dm3    insect      D.Per          Drosophila persimilis
+droPse4   D.Pse  dp4      fa           dm3    insect      D.Pse          Drosophila pseudoobscura
+droVir3   D.Vir  droVir3  fa           dm3    insect      D.Vir          Drosophila virilis
+droWil1   D.Wil  droWil1  fa           dm3    insect      D.Wil          Drosophila willstoni
+droYak2   D.Yak  droYak2  chrom-sub    dm3    insect      D.Yak          Drosophila yakuba
+anoGam1   A.Gam	 anoGam1  chrom-zip    dm3    insect      A.Gam          Anopheles gambiae
+#apiMel3   A.Mel  apiMel3  chrom	       dm3    insect      A.Mel          Apis mellifera
+triCas2   T.Cas  triCas2  fa           dm3    insect      T.Cas          Tribolium castaneum
+caeEle6   C.Ele  ce6      chrom        ce6    nematode    C.Ele          Caenorhabditis elegans
+caeBre2   C.Bre  caePb2   chrom        ce6    nematode    C.Bre          Caenorhabditis brenneri
+caeJap1   C.Jap  caeJap1  chrom        ce6    nematode    C.Jap          Caenorhabditis japonica
+caeBri3   C.Bri  cb3      chrom        ce6    nematode    C.Bri          Caenorhabditis brigsae
+caeRem3   C.Rem  caeRem3  chrom        ce6    nematode    C.Rem          Caenorhabditis remmanei
+priPac1   P.Pac  priPac1  chrom        ce6    nematode    P.Pac          Pristionchus pacificus

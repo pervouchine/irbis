@@ -1,0 +1,14 @@
+PDIR=Perl/
+CDIR=C/
+XDIR=Progs/
+
+FIXEDPATH=~/db/
+NETCHAIN = ${FIXEDPATH}chain/
+SEQUENCE = ${FIXEDPATH}genome/
+DOWNLOAD = ${FIXEDPATH}download/
+
+ANNOTATION = ${FIXEDPATH}annotation/
+
+VARIABLEPATH=~/db/
+METADATA = ${VARIABLEPATH}metadata/
+OUTDIR   = ${VARIABLEPATH}output/
