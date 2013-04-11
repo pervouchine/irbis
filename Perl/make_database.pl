@@ -27,7 +27,7 @@ print "SEGPAR  = -margin 8 -limit 5000\nSGNPAR  = -we 10 -wi 10 -cis -all\n\n";
             );
 %genes    = (   'vertebrate'=>["SF1", "HNRNPL", "PTPRC", "DST","KCNMA1","PTBP1","FOXP1","MAP3K4","MBNL1","MBNL2","FGFR3","FGFR1","SNORD115-1","SNORD116-4","CRHR1","ERGIC3"],
                 'insect'=>["Nmnat", "slo", "Ca-alpha1D", "Dscam","14-3-3zeta","Mhc","MRP","GluClalpha"],
-                'nematode'=>["lin-49","slo-1","mrp-1","clp-1"]
+                'nematode'=>["lin-49","slo-1","mrp-1","clp-1","C56A3.6"]
             );
 
 foreach my $key(keys(%UCSC)) {
