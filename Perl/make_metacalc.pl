@@ -19,9 +19,9 @@ use Perl::utils;
 print "include database.mk
 .PHONY: all clean\n\n";
 
-do_cmd('insect',	  'insect',  ["snoRNA", "snRNA", "ncRNA", "cspcg", "ncpcg"],  {"cspcg"=>"ncpcg"}, "-t .75 -L 12 -g 1 ");
-do_cmd('nematode',  'nematode',["snoRNA", "snRNA", "ncRNA", "cspcg", "ncpcg"],  {"cspcg"=>"ncpcg"}, "-t .60 -L 12 -g 1 ");
-do_cmd('vertebrate','mammal',  ["snoRNA", "snRNA", "lncRNA", "cspcg", "ncpcg"], {"cspcg"=>"ncpcg"}, "-t .80 -L 12 -g 1 ");
+do_cmd('insect',	  'insect',  ["snoRNA", "snRNA", "ncRNA", "cspcg", "ncpcg"],  {"cspcg"=>"ncpcg"}, "-t .75 -L 12 -g 1 ", "-C 10");
+do_cmd('nematode',  'nematode',["snoRNA", "snRNA", "ncRNA", "cspcg", "ncpcg"],  {"cspcg"=>"ncpcg"}, "-t .60 -L 12 -g 1 ", "-C 5");
+do_cmd('vertebrate','mammal',  ["snoRNA", "snRNA", "lncRNA", "cspcg", "ncpcg"], {"cspcg"=>"ncpcg"}, "-t .80 -L 12 -g 1 ", "-C 10");
 
 
 sub do_cmd {
@@ -30,6 +30,7 @@ sub do_cmd {
     my @biotypes = @{@_[2]};
     my %donottouch = %{@_[3]};
     my $params   = @_[4];
+    my $additional = @_[5];
 
     my $db = $REFDB{$BASESPECIES{$domain}};
 
@@ -45,6 +46,13 @@ sub do_cmd {
 					  output=>{-o=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].tab"}, after=>"$params -v", group=>"$clade");
 	    make(script=>"\${XDIR}irbis", input=>{-l=>"\${OUTDIR}$clade/$biotypes[$i].met", -r=>"\${OUTDIR}$clade/$biotypes[$j]\_rc.met"},
 					  output=>{-o=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j]\_rc.tab"}, after=>"$params -v", group=>"$clade");
+	    if($biotypes[$i] eq "snoRNA" && $biotypes[$j] eq "ncpcg") {
+		make(script=>"\${PDIR}tab2maf.pl", input=>{-l=>"$clade.cfg",-r=>"$clade.cfg",-i=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].tab"},
+						   output=>{-o=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].maf"}, after=>"$params $additional");
+		make(script=>"\${PDIR}tab2pdf.pl", input=>{-l=>"$clade.cfg",-r=>"$clade.cfg",-i=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].tab",
+			-m=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].maf"},output=>{-o=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].pdf"},
+			after=>"$params $additional",depends=>"\${METADATA}$domain/$db.sgn",group=>"$clade");
+	    }
     	}
     }
 
