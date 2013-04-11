@@ -2,7 +2,6 @@
 homSap19  H.Sap  hg19     chrom        hg19   vertebrate  Human          Homo sapiens
 panTro3   P.Tro  panTro3  fa           hg19   vertebrate  Chimpanse      Pan trogloditis
 rheMac2   R.Mac  rheMac2  chrom-soft   hg19   vertebrate  Rhesus_macaca  Macaca mulatta
-#otoGar1   O.Gar  otoGar1  fa           hg19   vertebrate  Bushbaby       Bushbaby
 papHam1   P.Ham  papHam1  fa           hg19   vertebrate  Baboon         Baboon
 gorGor3   G.Gor  gorGor3  fa           hg19   vertebrate  Gorilla        Gorilla gorilla
 ponAbe2   P.Abe  ponAbe2  chrom        hg19   vertebrate  Orangutan      Pongo pugmeus abelii
@@ -39,7 +38,7 @@ droVir3   D.Vir  droVir3  fa           dm3    insect      D.Vir          Drosoph
 droWil1   D.Wil  droWil1  fa           dm3    insect      D.Wil          Drosophila willstoni
 droYak2   D.Yak  droYak2  chrom-sub    dm3    insect      D.Yak          Drosophila yakuba
 anoGam1   A.Gam	 anoGam1  chrom-zip    dm3    insect      A.Gam          Anopheles gambiae
-#apiMel3   A.Mel  apiMel3  chrom	       dm3    insect      A.Mel          Apis mellifera
+apiMel3   A.Mel  apiMel3  chrom	       dm3    insect      A.Mel          Apis mellifera
 triCas2   T.Cas  triCas2  fa           dm3    insect      T.Cas          Tribolium castaneum
 caeEle6   C.Ele  ce6      chrom        ce6    nematode    C.Ele          Caenorhabditis elegans
 caeBre2   C.Bre  caePb2   chrom        ce6    nematode    C.Bre          Caenorhabditis brenneri
