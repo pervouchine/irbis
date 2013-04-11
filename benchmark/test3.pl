@@ -13,6 +13,7 @@ read_configuration($config);
 $dir  = "benchmark/files/";
 $file = "test3_$db"; 
 
+`mkdir -p $dir`;
 `perl Perl/all2all.pl -in $metadata/$db.cps -out $dir$db.a2a`;
 `Progs/irbis -l $output/ncpcg.met -r $output/ncpcg.met -o $dir$file.tab $params -b $dir$db.a2a` unless(-e "$dir$file.tab");
 
