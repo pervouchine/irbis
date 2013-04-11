@@ -29,14 +29,14 @@ INSTALLATION INSTRUCTIONS
 3) make sure that you don't have the directory called 'db' in your home directory; it will be replaced
 4) To install and download data, type
     make all
-    make -f database all
-    make -f metacalc all
-5) 'make -f database all' downloads all genomes specified in config.dat from UCSC
+    make -f database.mk all
+    make -f metacalc.mk all
+5) 'make -f database.mk all' downloads all genomes specified in config.dat from UCSC
    If you already have them, you can save some time by providing files directly
    You may find it useful to look at database and download makefiles
-6) 'make -f metacalc all' creates hash tables and does some matching of conserved complementary motifs (see metacalc)
+6) 'make -f metacalc.mk all' creates hash tables and does some matching of conserved complementary motifs (see metacalc.mk)
 
-Should you have any questions, please email Dmitri Pervouchine dp\@crg.eu
+Should you have any questions, please email Dmitri Pervouchine dp@crg.eu
 A short versioning track is provided in VERSION file
 
 =============================================================================================================================

@@ -17,7 +17,7 @@
     along with IRBIS package.  If not, see <http://www.gnu.org/licenses/>.
 
 =============================================================================================================================
-Versioning blog:
+Versioning log:
 
 version 3.2 Dec 17	1) Segment qualification changed: EIAX = exonic/intronic/alternative/enigmatic, 5NC3 = 5'UTR/non-coding/coding/3'-UTR
 			2) Added relational database (.rel file, see README)
