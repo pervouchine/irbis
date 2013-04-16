@@ -26,7 +26,7 @@ print "SEGPAR  = -margin 8 -limit 5000\nSGNPAR  = -we 10 -wi 10 -cis -all\n\n";
                 'nematode'=>['ncRNA']
             );
 %genes    = (   'vertebrate'=>["SF1", "HNRNPL", "PTPRC", "DST","KCNMA1","FOXP1","MAP3K4","FGFR3","FGFR1","SNORD115-1","SNORD116-4"],
-                'insect'=>["Nmnat", "slo", "Ca-alpha1D", "Dscam","14-3-3zeta","Mhc","GluClalpha"],
+                'insect'=>["Nmnat", "slo", "Ca-alpha1D", "Dscam","14-3-3zeta","Mhc","GluClalpha", "MRP"],
                 'nematode'=>["lin-49","slo-1","mrp-1","clp-1"]
             );
 
@@ -72,7 +72,7 @@ foreach my $name(keys(%UCSC)) {
 	make(script=>"\${PDIR}out2bed.pl", input=>{-in=>"$map"},output=>{-out=>"\${METADATA}$clade/$key.bed"}, after=>($key eq $BASESPECIES{$clade} ? "-cis" : undef));
 	make(script=>"\${CDIR}getsegm", input=>{-in=>"\${METADATA}$clade/$key.bed",-idx=>"\${SEQUENCE}$clade/$key.idx", -dbx=>"\${SEQUENCE}$clade/$key.dbx"},
 					output=>{'>'=>"\$(METADATA)$clade/$key.sus"}, after=>"\$(SEGPAR) | sort -k1,1n");
-	make(script=>"\${CDIR}indexing", input=>{-file=>"\${METADATA}$clade/$key.sus"}, output=>{-out=>"\${METADATA}$clade/$key.sus.ind"});
+	make(script=>"\${CDIR}indexing", input=>{-in=>"\${METADATA}$clade/$key.sus"}, output=>{-out=>"\${METADATA}$clade/$key.sus.ind"}, group=>"$clade");
     }
 }
 
