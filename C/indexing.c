@@ -23,9 +23,9 @@
 
 
 int main(int argc, char* argv[]) {
-    char buff[MAXBUFFLENGTH];
-    char inp_file_name[MAXBUFFLENGTH]="";
-    char out_file_name[MAXBUFFLENGTH]="";
+    char buff[MAXLONGBUFFLENGTH];
+    char inp_file_name[MAXLONGBUFFLENGTH]="";
+    char out_file_name[MAXLONGBUFFLENGTH]="";
     long pos;
 
     FILE *inp_file, *out_file;
@@ -67,10 +67,10 @@ int main(int argc, char* argv[]) {
     }
 
     fprintf(stderr, "[<%s", inp_file_name);
-    while(fgets(buff,MAXBUFFLENGTH,inp_file)) {
-       sscanf(buff,"%i",&key);
-       fprintf(out_file,"%i\t%li\n", key, pos);
-       pos = ftell(inp_file);
+    while(fgets(buff,MAXLONGBUFFLENGTH-ARRAY_MARGIN,inp_file)) {
+        sscanf(buff,"%i",&key);
+	fprintf(out_file,"%i\t%li\n", key, pos);
+	pos = ftell(inp_file);
     }
     fclose(inp_file);
     fclose(out_file);

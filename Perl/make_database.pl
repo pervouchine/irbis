@@ -72,7 +72,7 @@ foreach my $name(keys(%UCSC)) {
 	make(script=>"\${PDIR}out2bed.pl", input=>{-in=>"$map"},output=>{-out=>"\${METADATA}$clade/$key.bed"}, after=>($key eq $BASESPECIES{$clade} ? "-cis" : undef));
 	make(script=>"\${CDIR}getsegm", input=>{-in=>"\${METADATA}$clade/$key.bed",-idx=>"\${SEQUENCE}$clade/$key.idx", -dbx=>"\${SEQUENCE}$clade/$key.dbx"},
 					output=>{'>'=>"\$(METADATA)$clade/$key.sus"}, after=>"\$(SEGPAR) | sort -k1,1n");
-	make(script=>"\${CDIR}indexing", input=>{-in=>"\${METADATA}$clade/$key.sus"}, output=>{-out=>"\${METADATA}$clade/$key.sus.ind"});
+	make(script=>"\${CDIR}indexing", input=>{-in=>"\${METADATA}$clade/$key.sus"}, output=>{-out=>"\${METADATA}$clade/$key.sus.ind"}, group=>"$clade");
     }
 }
 
