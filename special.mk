@@ -40,9 +40,11 @@ ${NEMATODE}ce6.cps:	${ANNOTATION}Caenorhabditis_elegans.WS220.65.gtf
 
 #######################################################################################################################################
 
-${ANNOTATION}Gencode_lncRNAsv7_summaryTable_intergenic.txt: ${ANNOTATION}Gencode_lncRNAsv7_summaryTable.txt
-	awk '$$7=="intergenic"' ${ANNOTATION}Gencode_lncRNAsv7_summaryTable.txt > ${ANNOTATION}Gencode_lncRNAsv7_summaryTable_intergenic.txt
+#${ANNOTATION}Gencode_lncRNAsv7_summaryTable_intergenic.txt: ${ANNOTATION}Gencode_lncRNAsv7_summaryTable.txt
+#	awk '$$7=="intergenic"' ${ANNOTATION}Gencode_lncRNAsv7_summaryTable.txt > ${ANNOTATION}Gencode_lncRNAsv7_summaryTable_intergenic.txt
 
-${VERTEBRATE}lncRNA.cps: ${ANNOTATION}Gencode_lncRNAsv7_summaryTable_intergenic.txt ${VERTEBRATE}hg19.cps ${PDIR}intergenic_lncrna.pl
-	perl ${PDIR}intergenic_lncrna.pl -s ${VERTEBRATE}hg19.cps -i ${ANNOTATION}Gencode_lncRNAsv7_summaryTable_intergenic.txt | sort -u -k 5 > ${VERTEBRATE}lncRNA.cps
+${VERTEBRATE}lncRNA.cps : ${VERTEBRATE}hg19.cps ${PDIR}intergenic_lncrna.pl
+	perl ${PDIR}intergenic_lncrna.pl -cps ${VERTEBRATE}hg19.cps | sort -u -k 5 > ${VERTEBRATE}lncRNA.cps
+
+vertebrate :: ${VERTEBRATE}lncRNA.cps
 

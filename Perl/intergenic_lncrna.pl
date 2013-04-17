@@ -16,6 +16,8 @@
 
 # This script filters out the lncRNA from ARGV[0] (Rory's file) which overlap with protein coding genes (either strand)
 
+use Perl::utils;
+
 if(@ARGV==0) {
     print STDERR "This script filters out the lncRNA which overlap with protein coding genes (either strand)\n";
     print STDERR "Usage: $0 -s cps_file -i lncRNA_file (Rory's table) -o output_cps [-z overlapping_file]\n";
@@ -23,23 +25,20 @@ if(@ARGV==0) {
 }
 
 for(my $i=0;$i<@ARGV;$i++) {
-    $cps_file   = $ARGV[++$i] if($ARGV[$i] eq "-s");
-    $inp_file   = $ARGV[++$i] if($ARGV[$i] eq "-i");
-    $lnc_file   = $ARGV[++$i] if($ARGV[$i] eq "-z");
+    $cps  = $ARGV[++$i] if($ARGV[$i] eq "-cps");
 }
-die("No database, exiting\n") unless($cps_file);
-die("No input, exiting\n")    unless($inp_file);
+die("No database, exiting\n") unless($cps);
 
-open FILE, $cps_file || die("Can't open $cps_file, exiting\n");
-print STDERR "[Reading $cps_file";
+print STDERR "[<$cps";
+open FILE, $cps || die;
 while($line=<FILE>) {
     chomp($line);
-    ($chr, $pos, $str, $gene, $site, $type, $u, $d, $name, $bt) = split /\t/, $line;
-    if($bt eq "protein_coding") {
-	push @{$position{$name}}, $pos;
-	$location{$chr}{$name}=1;
-    }
-    push @{$data{$name}}, $line;
+    ($chr, $pos, $str, $x, $x, $type, $x, $x, $name, $biotype) = split /\t/, $line;
+    $chromosome{$name} = $chr;
+    $location{$chr}{$name}++;
+    push @{$position{$name}}, $pos;
+    $class{$biotype}{$name}++;
+    push @{$data{$name}}, "$line\n";
 }
 print STDERR "]\n";
 close FILE;
@@ -51,6 +50,22 @@ foreach $name(keys(%position)) {
     $max{$name} = pop(@arr);
 }
 print STDERR 0+keys(%max),"]\n";
+
+foreach $biotype('processed_transcript', 'lincRNA') {
+    $n=0;
+    foreach $name(keys(%{$class{$biotype}})) {
+	progressbar(++$n, 0+keys(%{$class{$biotype}}), "$biotype\t");
+	$flag = undef;
+	foreach $other(keys(%{$location{$chromosome{$name}}})) {
+	    next unless($class{'protein_coding'}{$other});
+	    $flag = 1 unless($max{$name} < $min{$other} || $max{$other} < $min{$name});
+	}
+	print @{$data{$name}} unless($flag);
+    }
+}
+
+exit;
+
 
 open FILE, $inp_file || die("Can't open $inp_file, exiting\n");
 print STDERR "[$inp_file -> $out_file";
