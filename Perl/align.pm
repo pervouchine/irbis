@@ -19,7 +19,7 @@
 ###########################################################################################################
 
     $pdflatex="pdflatex";		#name of the pdflatex program
-    $muscle="muscle";			#name of the muscle program;
+    $muscle="./muscle";			#name of the muscle program;
     $tmpfilename = "tmp";		#temporary file + PID will be used by muscle and pdflatex
     $alnparams = "-maxiters 1 -diags";	#parameters passed to the muscle alignmer
     $INFTY = 65535;			#plus infinity

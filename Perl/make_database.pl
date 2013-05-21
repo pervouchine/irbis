@@ -25,7 +25,7 @@ print "SEGPAR  = -margin 8 -limit 5000\nSGNPAR  = -we 10 -wi 10 -cis -all\n\n";
                 'insect'=>['ncRNA'],
                 'nematode'=>['ncRNA']
             );
-%genes    = (   'vertebrate'=>["SF1", "HNRNPL", "PTPRC", "DST","KCNMA1","FOXP1","MAP3K4","FGFR3","FGFR1","SNORD115-1","SNORD116-4"],
+%genes    = (   'vertebrate'=>["SF1", "HNRNPL", "PTPRC", "DST", "TTN", "KCNMA1","FOXP1","MAP3K4","FGFR3","FGFR1","SNORD115-1","SNORD116-4","RP11-439A17.4","HIST"],
                 'insect'=>["Nmnat", "slo", "Ca-alpha1D", "Dscam","14-3-3zeta","Mhc","GluClalpha", "MRP"],
                 'nematode'=>["lin-49","slo-1","mrp-1","clp-1"]
             );

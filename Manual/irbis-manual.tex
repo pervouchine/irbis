@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{cite}
+\usepackage{soul}
+\usepackage{multirow}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{lscape}
+
+
+\title{IRBIS: a systematic search for conserved complementarity}
+\author{\sc User Manual}
+\date{\today}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Introduction}
+This document is  a minimal description of the IRBIS pipeline and will be updated with the package. Currently it 
+contains a minimal description of pipeline elements and some examples. Specific question can be sent to Dmitri 
+Pervouchine (dp\@crg.eu).
+
+\section{How to make it work}
+A copy of IRBIS can be obtained from \href{https://github.com/pervouchine/irbis}{GitHub}. 
+The pipeline uses GNU {\tt make} utility for both compiling the C++ code and data processing. 
+
+Enter the trunk and run sequentially
+\begin{enumerate} 
+\tt
+\item make all
+\item make -f database.mk all
+\item make -f metacalc.mk all
+\end{enumerate}
+
+The first step creates binaries in {\tt C/} and {\tt Progs/} directories. The second step does automatic data download 
+from UCSC, including genome sequences, pairwise sequence alignments, and annotations. The download location is specified 
+by a number of variables in the {\tt config.mk} file. Namely, {\tt \$FIXEDPATH} is the path to the database directory. 
+You might want to skip this step (at least the download part) if you already have the corresponding files in your file 
+system. The third step creates metadata in the {\tt \$METADATA} directory and some of the output files in {\tt \$OUTDIR}.
+
+IRBIS depends on g++, perl, latex + tikz + pgfplots (pgfplots is optional), and muscle (if muscle software is 
+not in the system, you can obtain it by {\tt make muscle}). {\bf Important:} check the {\tt \$muscle} variable in {\tt Perl/align.pm}
+
+\section{Inside the pipeline}
+The pipeline is configured by a number of Perl scripts which create makefiles; makefile is that is actually executed. This is 
+controlled by three main scripts.
+\begin{enumerate}
+\item {\tt Perl/make\_database.pl} takes config.dat and determines all data preparation steps
+\item {\tt Perl/make\_download.pl} takes care of the data download and processing
+\item {\tt Perl/make\_metacalc.pl} takes sequence data, creates hash table metafiles (long), and executes some of the comparisons 
+that are presented in the paper.
+\end{enumerate}
+
+\subsection{Annotation in reference genomes}
+The annotation of reference genomes is downloaded as stated in {\tt special.mk} file. The input to the pipeline is a gtf 
+file, which is processed sequentially as follows.
+\begin{enumerate}
+\item {\tt Perl/gen\_loci.pl} is an optional pre-processing step which determines and merges gene loci that have at least 
+one splice site in common (by taking transitive closure). After this step, each splice site would has unique gene identifier.
+\item {\tt Perl/gtf2db.pl} is a step that creates and attributes the database of splice sites (.cps file) and segment relational files (.rel)
+\item {\tt Perl/all2all.pl} creates a binary all-to-all relation between splice sites of each gene (all-to-all within gene)
+\item {\tt Perl/intergenic\_lncrna.pl} removes segments of lncRNA that overlap protein-coding genes
+\item {\tt C/transf} transforms genomic sequence data into the compressed format which keeps repeat-masking information.
+\end{enumerate}
+
+As soon as exon boundaries in the reference genomes are ready, the next series of steps perform the mapping
+\begin{enumerate}
+\item {\tt C/map\_agnostic} is a routine that maps exon boundaries to the target genome (not uniquely), outputs .aln file
+\item The filtering step can be performed by one of the following routines (details can be found in the comments to these programs). 
+Each of this programs outputs a unique mapping file (.map)
+\begin{enumerate}
+\item {\tt C/net\_filter} selects unique mappings based on NET alignments
+\item {\tt C/syntenic\_filter} selects unique mappings by maximizing syntheny (the longest continuous stretch of exon boundaries)
+\item {\tt C/best\_match} selects unique mappings by maximizing syntheny per gene (the longest continuous stretch of exon boundaries per gene)
+\end{enumerate}
+\item {\tt Perl/map2bed.pl} takes orthologous exon boundaries (.map) and outputs ortholohous segments (.bed)
+\item {\tt C/getsegm} uses the bed output of the previous step to pull out genomic sequences (.sus, single unaligned segment) 
+\item {\tt C/getwind} can be used to output windows surrounding exon boundaries (.suw, single unaligned window). Currently it is used to create splice site signatures (.sgn)
+\item {\tt C/getmuf} is designed to ease the access to specific sets of genes by combining single unaligned segments from different species into one muf file (.mus multiple unaligned segments)
+\item {\tt C/indexing} creates index tables for sequence files (for speed-up)
+\end{enumerate}
+
+As soon as all sequence data is on place, the built-in part of the pipeline is executed as follows
+\begin{enumerate}
+\item {\tt Progs/trim} is the routine that takes sequence file (either a collection of .sus defined in the configuration file or a single mus file), 
+creates a hashtable and trims it according to $t_1$ threshold (.met)
+\item {\tt Progs/irbis} takes two metafiles on input, a binary relation file, and outputs conserved complemetary k-mers (.tab)
+\item {\tt Perl/tab2maf.pl} takes two configuration files and the tab output of the previous step, reads sequences and aligns them producing .maf (mulptiple alignment file)
+\item {\tt Perl/tab2pdf.pl} takes all the above inputs and creates a pdf file with one pair of alignments per page
+\end{enumerate}
+
+\section{Custom queries}
+Custom queries can be executed by using two makefiles.
+\subsection{pipeline.mk}
+This is a framework to run a search in set $A$ vs. set $B$ given a binary relation ${\cal R}$. The inputs are the following.
+\begin{enumerate}
+\item {\tt DOMAIN} is the name of the database directory (no slash at the end)
+\item {\tt SPECIES} is the name of the configuration file (which also will be the name of the output directory)
+\item {\tt LEFT}  a cps file of the set $A$
+\item {\tt RIGHT} a cps file of the set $B$
+\item {\tt PARAMS} is the list of parameters to be passed to {\tt Progs/trim}, {\tt Progs/irbis}, {\tt Perl/tab2maf.pl}, and {\tt Perl/tab2pdf.pl}
+\end{enumerate}
+
+Examples:
+\begin{enumerate}
+\item {\tt make -f pipeline.mk DOMAIN=insect SPECIES=insect LEFT=ncpcg RIGHT=ncpcg OUT=ncpcg\_ss PARAMS='-t 0.9 -L 12 -g 1 -u 1 -B ~/db/metadata/insect/dm3.a2a' pdf} --- finds conserved complemetary k-mers in non-coding segments of insect protein-coding genes according to all-to-all-within-one-gene relation specified in ~/db/metadata/insect/dm3.a2a; outputs a pdf
+\item {\tt make -f pipeline.mk DOMAIN=insect SPECIES=insect LEFT=ncpcg RIGHT=ncpcg OUT=ncpcg\_all PARAMS='-t 0.9 -L 12 -g 1 -u 1' tab} --- finds conserved complemetary k-mers in all pairwise combinations of segments of insect protein-coding genes according; outputs a tab file
+\item {\tt make -f pipeline.mk DOMAIN=vertebrate SPECIES=mammal LEFT=RP11-439A17.4 RIGHT=HIST OUT=RP11-439A17.4\_HIST PARAMS='-t 0.8 -L 12 -g 1' pdf} --- finds conserved complemetary k-mers between RP11-439A17.4 lncRNA (the corresponding cps file has to be present under ~/db/metadata/vertebrate/) and histone genes (same about HIST.cps) with the described parameters, outputs a pdf
+\end{enumerate}
+
+\subsection{single\_gene.mk}
+This pipeline is designed to work with single genes. The inputs are the following.
+\begin{enumerate}
+\item {\tt DOMAIN} is the name of the database directory (no slash at the end)
+\item {\tt SPECIES} is the name of the configuration file (which also will be the name of the output directory)
+\item {\tt NAME} is a cps file
+\item {\tt PARAMS} is the list of parameters to be passed to {\tt Progs/trim}, {\tt Progs/irbis}, {\tt Perl/tab2maf.pl}, and {\tt Perl/tab2pdf.pl}
+\end{enumerate}
+
+Examples:
+\begin{enumerate}
+\item {\tt make -f single\_gene.mk DOMAIN=insect SPECIES=insect NAME=Ca-alpha1D PARAMS='-t 0.9 -L 12 -g 1 -u 1' pdf} --- finds conserved complemetary k-mers in all segments of the insect Ca-alpha1D gene; outputs a pdf
+\item {\tt make -f single\_gene.mk DOMAIN=insect SPECIES=insect NAME=Ca-alpha1D PARAMS='-t 0.9 -L 12 -g 1 -u 1 -b ~/db/metadata/insect/dm3.int -E' pdf} --- finds conserved complemetary k-mers in all segments of the insect Ca-alpha1D gene by matching only segments that correspond to annotated introns
+\end{enumerate}
+
+
+\end{document}
+
+
+
