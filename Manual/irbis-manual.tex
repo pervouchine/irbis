@@ -52,7 +52,7 @@ controlled by three main scripts.
 that are presented in the paper.
 \end{enumerate}
 
-\subsection{Annotation in reference genomes}
+\subsection{Reference genomes}
 The annotation of reference genomes is downloaded as stated in {\tt special.mk} file. The input to the pipeline is a gtf 
 file, which is processed sequentially as follows.
 \begin{enumerate}
@@ -64,7 +64,8 @@ one splice site in common (by taking transitive closure). After this step, each 
 \item {\tt C/transf} transforms genomic sequence data into the compressed format which keeps repeat-masking information.
 \end{enumerate}
 
-As soon as exon boundaries in the reference genomes are ready, the next series of steps perform the mapping
+\subsection{Orthologous segments}
+As soon as exon boundaries in the reference genomes are computed, the next step of the pipeline is to find orthologous segments.
 \begin{enumerate}
 \item {\tt C/map\_agnostic} is a routine that maps exon boundaries to the target genome (not uniquely), outputs .aln file
 \item The filtering step can be performed by one of the following routines (details can be found in the comments to these programs). 
@@ -81,7 +82,8 @@ Each of this programs outputs a unique mapping file (.map)
 \item {\tt C/indexing} creates index tables for sequence files (for speed-up)
 \end{enumerate}
 
-As soon as all sequence data is on place, the built-in part of the pipeline is executed as follows
+\subsection{Metadata}
+When all the sequence data is prepared, the next step is to compute hash tables, trim and store them as metadata.
 \begin{enumerate}
 \item {\tt Progs/trim} is the routine that takes sequence file (either a collection of .sus defined in the configuration file or a single mus file), 
 creates a hashtable and trims it according to $t_1$ threshold (.met)
