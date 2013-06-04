@@ -16,6 +16,8 @@
 
 use Perl::utils;
 
+#$memtest = "perl Perl/memtest.pl ";
+
 print "include database.mk
 .PHONY: all clean\n\n";
 
@@ -35,16 +37,16 @@ sub do_cmd {
     my $db = $REFDB{$BASESPECIES{$domain}};
 
     foreach $biotype(@biotypes) {
-	make(script=>"\${XDIR}trim", input=>{-i=>"$clade.cfg",-r=>"\${METADATA}$domain/$biotype.cps"}, output=>{-o=>"\${OUTDIR}$clade/$biotype.met"}, group=>"$clade");
-	make(script=>"\${XDIR}trim", input=>{-i=>"$clade.cfg",-r=>"\${METADATA}$domain/$biotype.cps"}, output=>{-o=>"\${OUTDIR}$clade/$biotype\_rc.met"}, after=>'-rc');
+	make(script=>"$memtest\${XDIR}trim", input=>{-i=>"$clade.cfg",-r=>"\${METADATA}$domain/$biotype.cps"}, output=>{-o=>"\${OUTDIR}$clade/$biotype.met"}, group=>"$clade");
+	make(script=>"$memtest\${XDIR}trim", input=>{-i=>"$clade.cfg",-r=>"\${METADATA}$domain/$biotype.cps"}, output=>{-o=>"\${OUTDIR}$clade/$biotype\_rc.met"}, after=>'-rc');
     }
 
     for($i=0;$i<@biotypes;$i++) {
     	for($j=$i+1;$j<@biotypes;$j++) {
 	    next if($donottouch{$biotypes[$i]} eq $biotypes[$j]);
-	    make(script=>"\${XDIR}irbis", input=>{-l=>"\${OUTDIR}$clade/$biotypes[$i].met", -r=>"\${OUTDIR}$clade/$biotypes[$j].met"},
+	    make(script=>"$memtest\${XDIR}irbis", input=>{-l=>"\${OUTDIR}$clade/$biotypes[$i].met", -r=>"\${OUTDIR}$clade/$biotypes[$j].met"},
 					  output=>{-o=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].tab"}, after=>"$params -v", group=>"$clade");
-	    make(script=>"\${XDIR}irbis", input=>{-l=>"\${OUTDIR}$clade/$biotypes[$i].met", -r=>"\${OUTDIR}$clade/$biotypes[$j]\_rc.met"},
+	    make(script=>"$memtest\${XDIR}irbis", input=>{-l=>"\${OUTDIR}$clade/$biotypes[$i].met", -r=>"\${OUTDIR}$clade/$biotypes[$j]\_rc.met"},
 					  output=>{-o=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j]\_rc.tab"}, after=>"$params -v", group=>"$clade");
 	    if($biotypes[$i] eq "snoRNA" && $biotypes[$j] eq "ncpcg") {
 		make(script=>"\${PDIR}tab2maf.pl", input=>{-l=>"$clade.cfg",-r=>"$clade.cfg",-i=>"\${OUTDIR}$clade/$biotypes[$i]\_$biotypes[$j].tab"},
@@ -57,7 +59,7 @@ sub do_cmd {
     }
 
     foreach $biotype(@biotypes) {
-	make(script=>"\${XDIR}irbis",	   input=>{-l=>"\${OUTDIR}$clade/$biotype.met",-r=>"\${OUTDIR}$clade/$biotype.met",-B=>"\${METADATA}$domain/$db.a2a"},
+	make(script=>"$memtest\${XDIR}irbis",	   input=>{-l=>"\${OUTDIR}$clade/$biotype.met",-r=>"\${OUTDIR}$clade/$biotype.met",-B=>"\${METADATA}$domain/$db.a2a"},
 					   output=>{-o=>"\${OUTDIR}$clade/$biotype\_SS.tab"}, after=>"$params -u 1");
 	make(script=>"\${PDIR}tab2maf.pl", input=>{-l=>"$clade.cfg",-r=>"$clade.cfg",-i=>"\${OUTDIR}$clade/$biotype\_SS.tab"},
 					   output=>{-o=>"\${OUTDIR}$clade/$biotype\_SS.maf"}, after=>"$params");
