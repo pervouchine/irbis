@@ -425,7 +425,7 @@ sub enthropy {
 	    $c=$val;
 	}
     }
-    return(0) unless($s>0);
+    return(0) unless($s>1);
     $e=int($ASTERISK_SCALE*($e/$s/log($s)));
     return($c =~ /[a-z]/ ? $e : 0);
 }
