@@ -23,7 +23,7 @@ PROGRAMS=${CDIR}map_agnostic ${CDIR}map_single ${CDIR}net_filter ${CDIR}transf $
 
 .PHONY:	all clean
 
-all ::	${PROGRAMS} database.mk download.mk metacalc.mk
+all ::	${PROGRAMS} database.mk download.mk metacalc.mk muscle
 
 clean ::
 	rm -f ${PROGRAMS} database.mk download.mk metacalc.mk ${PDIR}setup.pm
