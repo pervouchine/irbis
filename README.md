@@ -39,6 +39,7 @@ INSTALLATION INSTRUCTIONS
 Should you have any questions, please email Dmitri Pervouchine dp@crg.eu
 A short versioning track is provided in VERSION file
 
+Note: current version is not compartible with MAPTOOLS
 =============================================================================================================================
 
 GENOMIC COORDINATE CONVENTION
