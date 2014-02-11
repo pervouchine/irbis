@@ -1,20 +1,20 @@
 =============================================================================================================================
-    Copyright 2011,2012 Dmitri Pervouchine
+Copyright 2011,2012 Dmitri Pervouchine
 
-    This file is part of the IRBIS package.
+This file is part of the IRBIS package.
 
-    IRBIS package is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+IRBIS package is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    IRBIS package is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+IRBIS package is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with IRBIS package.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with IRBIS package.  If not, see <http://www.gnu.org/licenses/>.
 
 =============================================================================================================================
 
@@ -24,14 +24,14 @@ INSTALLATION INSTRUCTIONS
 2) Make sure that you have installed
  - g++ compiler
  - perl
- - muscle software (if not, type 'make muscle' from the command line)
+ - muscle 
  - latex + tikz + pgfplots (pgfplots is optional)
-3) make sure that you don't have the directory called 'db' in your home directory; it will be replaced
+3) make sure that you don`t have the directory called 'db' in your home directory; it will be replaced
 4) To install and download data, type
     make all
     make -f database.mk all
     make -f metacalc.mk all
-5) 'make -f database.mk all' downloads all genomes specified in config.dat from UCSC
+5) 'make -f database.mk all' downloads all genomes specified in config.dat from UCSC website
    If you already have them, you can save some time by providing files directly
    You may find it useful to look at database and download makefiles
 6) 'make -f metacalc.mk all' creates hash tables and does some matching of conserved complementary motifs (see metacalc.mk)
@@ -43,7 +43,7 @@ A short versioning track is provided in VERSION file
 
 GENOMIC COORDINATE CONVENTION
 
-Splice site coordinates refer to to the phosphodisester bond at the 5' position of the nucleotide, i.e.,
+Splice site coordinates refer to to the phosphodisester bond at the 5` position of the nucleotide, i.e.,
     for D/E first nt of the intron (G of GT) or after the end of transcript (D=donor, E=end)
     for A/S fist  nr of the exon (one after AG) or the first nt of the gene (A=acceptor, S=start)
 
@@ -84,7 +84,7 @@ A = alternative (can be exonic or intronic)
 I = always intronic
 X = enigmatic (intergenic within a gene) ==> to be resolved with Gencode people
 
-N = doesn't overlap with coding parts
+N = doesn`t overlap with coding parts
 C = overlaps with at least one CDS
 
 .aln = chromosome-position-strand-chromosome-position-strand
@@ -174,7 +174,7 @@ BRIEF DESCRIPTION OF THE ALGORITHM (might be outdated)
 
         YYYYggYYYY
         ^
-        j <- for the RIGHT set it's symmetirc
+        j <- for the RIGHT set it`s symmetirc
    That is, each dictionary D(i) appoints to a word the set of locations, where the word occurs. The locations are of the form (id, pos, gap) and are listed
    in ascending order for each word. For the D*(i) everything is symmetric, i.e., reverse complements are considered for each word and triplets are listed in
    the reverse order.
