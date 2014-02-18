@@ -25,10 +25,11 @@ print "SEGPAR  = -margin 8 -limit 5000\nSGNPAR  = -we 10 -wi 10 -cis -all\n\n";
                 'insect'=>['ncRNA'],
                 'nematode'=>['ncRNA']
             );
-%genes    = (   'vertebrate'=>["SF1", "HNRNPL", "PTPRC", "DST", "TTN", "KCNMA1","FOXP1","MAP3K4","FGFR3","FGFR1","SNORD115-1","SNORD116-4","RP11-439A17.4","HIST","ABCC1","ENAH","KIF21A","BRAF","PKM2","SYK","PTBP1","PTBP2","NUMB","PVT1"],
-                'insect'=>["Nmnat", "slo", "Ca-alpha1D", "Dscam","14-3-3zeta","Mhc","GluClalpha", "MRP","TepII"],
-                'nematode'=>["lin-49","slo-1","mrp-1","clp-1"]
-            );
+
+foreach $line(split /\n/, `cat genes.dat`) {
+    ($clade, $name) = split /\t/, $line;
+    push @{$genes{$clade}}, $name;
+}
 
 foreach my $key(keys(%UCSC)) {
     $clade = $CLADE{$key};

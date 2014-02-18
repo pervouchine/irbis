@@ -88,7 +88,10 @@ int main(int argc, char** argv) {
 	exit(0);
     }
 
+
+
     timestamp_set();
+
     rel_binary_file_name[0] = rel_tabdel_file_name[0] = 0;
     for(i=1;i<argc;i++) {
         pc = argv[i];

@@ -1,4 +1,3 @@
-library(doBy)
 library(Hmisc)
 library(ggplot2)
 
@@ -18,11 +17,14 @@ data2 = data[data$id>0,]
 
 se <- function(x){1.64*sd(x)/sqrt(length(x))}
 
-summaryBy(value~Threshold+Length,data2,FUN=c(mean,se)) -> data3
+aggregate(data2$value,list(Threshold=data2$Threshold,Length=data2$Length), FUN=mean) -> data3a
+aggregate(data2$value,list(Threshold=data2$Threshold,Length=data2$Length), FUN=se  ) -> data3b
+merge(data3a, data3b, by=c('Threshold','Length')) -> data3
+colnames(data3)=c('Threshold','Length','mean','se')
 
 merge(data1, data3, by=c('Threshold','Length')) -> data4
-data4$fdr = with(data4,value.mean/value)
-data4$fdr.SE = with(data4,value.se/value)
+data4$fdr = with(data4, mean/value)
+data4$fdr.SE = with(data4, se/value)
 
 q = theme(axis.text.x = element_text(size=16),axis.text.y = element_text(size=16),legend.text = element_text(size=16),axis.title.x = element_text(size=16), axis.title.y = element_text(size=16))
 
