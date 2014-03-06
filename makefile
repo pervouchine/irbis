@@ -36,7 +36,7 @@ ${PDIR}setup.pm:	${PDIR}setup.pl
 download.mk : config.dat ${PDIR}make_download.pl ${PDIR}utils.pm ${PDIR}setup.pm
 	perl ${PDIR}make_download.pl > download.mk
 
-database.mk : config.dat ${PDIR}make_database.pl ${PDIR}utils.pm ${PDIR}setup.pm
+database.mk : config.dat genes.dat ${PDIR}make_database.pl ${PDIR}utils.pm ${PDIR}setup.pm
 	perl ${PDIR}make_database.pl > database.mk
 
 metacalc.mk : config.dat ${PDIR}make_metacalc.pl ${PDIR}utils.pm ${PDIR}setup.pm
