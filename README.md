@@ -30,8 +30,7 @@ The first step ('make all') creates binaries and configures makefiles for the fo
 The second step ('make -f database.mk all') does automatic data download from public repositories, including
 genomic sequences, pairwise sequence alignments, and annotations. The download location is specified
 in config.dat file. Note that $FIXEDPATH is the path to the database directory. You might want to skip 
-this step (at least the download part) if you already have the corresponding files in your file
-system. 
+the download step (at least for genomes) if you already have the corresponding files.
 
 The third step ('make -f metacalc.mk all') creates metadata in the $METADATA directory and runs IRBIS pipeline.
 Output files will be located on $OUTDIR.
