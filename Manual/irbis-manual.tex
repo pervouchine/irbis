@@ -25,7 +25,7 @@ Pervouchine (dp\@crg.eu).
 A copy of IRBIS can be obtained from \href{https://github.com/pervouchine/irbis}{GitHub}. 
 The pipeline uses GNU {\tt make} utility for both compiling the C++ code and data processing. 
 
-Enter the trunk and run sequentially
+Enter the folder and run sequentially
 \begin{enumerate} 
 \tt
 \item make all
@@ -35,7 +35,7 @@ Enter the trunk and run sequentially
 
 The first step creates binaries in {\tt C/} and {\tt Progs/} directories. The second step does automatic data download 
 from UCSC, including genome sequences, pairwise sequence alignments, and annotations. The download location is specified 
-by a number of variables in the {\tt config.mk} file. Namely, {\tt \$FIXEDPATH} is the path to the database directory. 
+by a number of variables in the {\tt config.dat} file. Namely, {\tt \$FIXEDPATH} is the path to the database directory. 
 You might want to skip this step (at least the download part) if you already have the corresponding files in your file 
 system. The third step creates metadata in the {\tt \$METADATA} directory and some of the output files in {\tt \$OUTDIR}.
 
