@@ -1,5 +1,5 @@
 
-=============================================================================================================================
+========================================================================================================================
 
 IRBIS: a systematic search for conserved complementarity
 
@@ -12,7 +12,7 @@ it can be re-configured to perform user-specific RNA structure seqrches. Questio
 to Dmitri Pervouchine (dp at crg dot eu).
 
 
-=============================================================================================================================
+========================================================================================================================
 
 INSTALLATION
 
@@ -21,13 +21,13 @@ purposes: (i) compiling the code and (ii) data processing and workflow
 
 Enter the folder and run sequentially
 
-  make all
-  make -f database.mk all
-  make -f metacalc.mk all
+	make all
+	make -f database.mk all
+	make -f metacalc.mk all
 
 The first step ('make all') creates binaries and configures makefiles for the following steps. 
 
-The second step ('make -f database.mk al'l) does automatic data download from public repositories, including
+The second step ('make -f database.mk all') does automatic data download from public repositories, including
 genomic sequences, pairwise sequence alignments, and annotations. The download location is specified
 in config.dat file. Note that $FIXEDPATH is the path to the database directory. You might want to skip 
 this step (at least the download part) if you already have the corresponding files in your file
@@ -40,7 +40,7 @@ Output files will be located on $OUTDIR.
 IRBIS depends on g++, perl, latex + tikz + pgfplots (pgfplots is optional), and muscle (if muscle software is
 not in the system, you can obtain it by 'make muscle'). Important: check the $muscle variable in Perl/align.pm
 
-=============================================================================================================================
+========================================================================================================================
 
 For more detailed information on examples, benchmarks, and running the pipeline in custom modes
 please refer to the manual.
