@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
     subset *right_restriction=NULL;
 
     if(argc==1) {
-	fprintf(stderr, "BInary Search for COnserved RNa Structures\n");
+	fprintf(stderr, "IRBIS Intermolecular RNA (BLAT-like) Interaction Search\n");
 	fprintf(stderr, "Usage: %s -l [left_metacalc] -r [right_metacalc] -o [output_tabular file]\n",argv[0]);
 	fprintf(stderr, " -v suppress verbose output\n -t threshold for intersection\n -u redundant pairs (0=strict no, 1=no, 2=allowed)\n -L min length\n");
 	fprintf(stderr, " -B binary relation file\n -b tab-delimited relation file\n -j suppress joint fold (fold species separately)\n");
